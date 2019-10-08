@@ -4,6 +4,7 @@ import data from './data';
 
 // contexts
 import { ProductContext } from './contexts/ProductContext';
+import { CartContext } from './contexts/CartContext';
 
 // Components
 import Navigation from './components/Navigation';
@@ -21,17 +22,16 @@ function App() {
 
 	return (
 		<ProductContext.Provider value={{products, addItem}}>
-		  <div className="App">
-		  	<Navigation cart={cart} />
-		  
-		  	{/* Routes */}
-        <Route exact path="/" component={Products} />
-
-		  	<Route
-		  		path="/cart"
-		  		render={() => <ShoppingCart cart={cart} />}
-		  	/>
-		  </div>
+		  <CartContext.Provider value={cart}>
+		    <div className="App">
+		    	<Navigation />
+		    
+		    	{/* Routes */}
+          <Route exact path="/" component={Products} />
+          <Route exact path="/cart" component={ShoppingCart} />
+		    
+		    </div>
+		  </CartContext.Provider>
 		</ProductContext.Provider>
 	);
 }
